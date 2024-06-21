@@ -6,7 +6,7 @@
 /*   By: jnajul <jnajul@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:22:18 by jnajul            #+#    #+#             */
-/*   Updated: 2024/06/21 12:12:43 by jnajul           ###   ########.fr       */
+/*   Updated: 2024/06/21 16:01:16 by jnajul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,47 @@ void	init_stack_a(t_stack_node **a, char **argv)
 	while (argv[i])
 	{
 		if (error_syntax(argv[i]))
+			free_errors(a);
+		n = ft_atol(argv[i]);
+		if (n > INT_MAX || n < INT_MIN)
+			free_errors(a);
+		if (if_duplicate(*a, (int)n))
+			free_errors(a);
+		append_node(a, (int)n);
+		i++;
+	}
+}
+
+t_stack_node	*get_cheapest_node(t_stack_node *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->cheapest)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
+}
+
+void	prep(t_stack_node **stack, t_stack_node *top_node, char name)
+{
+	while (*stack != top_node)
+	{
+		if (name == 'a')
+		{
+			if (top_node->above_median)
+				rotate_a(stack, false);
+			else
+				rr_a(stack, false);
+		}
+		else if (name == 'b')
+		{
+			if (top_node->above_median)
+				rotate_b(stack, false);
+			else
+				rr_b(stack, false);
+		}
 	}
 }
