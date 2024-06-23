@@ -1,13 +1,36 @@
+NAME = push_swap
+
+LIBFT = includes/libft/libft.a
+OPERATORS = operators/
+SORTING = sorting/
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC = operators.c push_swap.c
-OBJ = $(SRC:.c=.o)
-NAME = push_swap
+
+COMMANDS = $(OPERATORS)error_handling.c \
+				 $(OPERATORS)push.c \
+				 $(OPERATORS)rotate.c \
+				 $(OPERATORS)reverse_rotate.c \
+				 $(OPERATORS)swap.c \
+				 $(OPERATORS)split.c 
+
+
+SORTING = $(SORTING)init_a.c \
+			$(SORTING)init_b.c \
+			$(SORTING)initialization.c \
+			$(SORTING)sort_three.c \
+			$(SORTING)utils.c \
+
+SRCS = $(COMMANDS) $(SORTING)
+OBJ = $(SRCS:.c=.o)
+
+$(LIBFT):
+	@make -C includes/libft
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+$(NAME): $(OBJ) $(LIBFT)
+			@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)

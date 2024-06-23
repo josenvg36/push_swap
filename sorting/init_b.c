@@ -6,7 +6,7 @@
 /*   By: jnajul <jnajul@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:22:58 by jnajul            #+#    #+#             */
-/*   Updated: 2024/06/21 16:26:17 by jnajul           ###   ########.fr       */
+/*   Updated: 2024/06/23 21:31:43 by jnajul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,24 @@ void	init_b(t_stack_node *a, t_stack_node *b)
 	cursor(a);
 	cursor(b);
 	set_target_b(a, b);
+}
+
+static void	rotate_both((t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node)
+{
+	while (a != cheapest_node && b != cheapest_node)
+	{
+		rotate_both(a, b, true);
+	}
+	current_index(*a);
+	current_index(*b);
+}
+
+static void	rev_rotate_both((t_stack_node **a, t_stack_node **b, t_stack_node *cheapest_node)
+{
+	while (a != cheapest_node && b != cheapest_node)
+	{
+		rr_both(a, b, true);
+	}
+	current_index(*a);
+	current_index(*b);
 }
